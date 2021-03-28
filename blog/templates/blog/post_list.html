@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  {% for post in posts %}
+    <article class="mb-8">
+      <h2 class="text-xl font-bold text-green-500 m-0"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+      <time class="text-gray-600 mb-2 inline-block">Published: {{ post.published_date }}</time>
+      <p>{{ post.text|linebreaksbr }}</p>
+    </article>
+  {% endfor %}
+{% endblock %}
