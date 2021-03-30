@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+  <h2 class="text-3xl text-green-500 font-bold mb-4">Register</h2>
+  {% if error %}
+    <p class="mb-2">{{ error }}</p>
+  {% endif %}
+  <form method="post" action="{% url 'register' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="px-4 py-2 font-bold bg-green-500 text-white br-rounded-lg mt-8 cursor-pointer" type="submit" value="Register" />
+    </form>
+{% endblock %}

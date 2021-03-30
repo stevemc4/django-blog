@@ -46,3 +46,45 @@ class CommentForm(forms.ModelForm):
   class Meta:
     model = Comment
     fields = ('text',)
+
+class RegisterForm(forms.Form):
+  username = forms.CharField(
+    label='Username',
+    max_length=32,
+    required=True,
+    widget=forms.TextInput(
+      attrs={
+        'class': 'border-2 rounded border-gray-400 block mt-2 mb-4 w-full p-2'
+      }
+    )
+  )
+
+  password = forms.CharField(
+    label='Password',
+    required=True,
+    widget=forms.PasswordInput(
+      attrs={
+        'class': 'border-2 rounded border-gray-400 block mt-2 mb-4 w-full p-2'
+      }
+    )
+  )
+
+  first_name = forms.CharField(
+    label='First Name',
+    required=True,
+    widget=forms.TextInput(
+      attrs={
+        'class': 'border-2 rounded border-gray-400 block mt-2 mb-4 w-full p-2'
+      }
+    )
+  )
+
+  last_name = forms.CharField(
+    label='Last Name',
+    required=True,
+    widget=forms.TextInput(
+      attrs={
+        'class': 'border-2 rounded border-gray-400 block mt-2 mb-4 w-full p-2'
+      }
+    )
+  )

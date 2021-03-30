@@ -21,6 +21,7 @@
       </div>
     </div>
     <input class="px-4 py-2 font-bold bg-green-500 text-white br-rounded-lg mt-8 cursor-pointer" type="submit" value="Login" />
+    <a class="px-4 py-2 font-bold text-green-500 br-rounded-lg mt-8 cursor-pointer" href="{% url 'register' %}">Register</a>
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 {% endblock %}

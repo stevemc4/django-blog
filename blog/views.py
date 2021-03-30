@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from blog.models import Post, Tag
-from blog.forms import PostForm, CommentForm
+from blog.forms import PostForm, CommentForm, RegisterForm
 
 # Create your views here.
 
@@ -37,6 +38,7 @@ def post_new(request):
       post = form.save(commit=False)
       post.author = request.user
       post.published_date = timezone.now()
+      post.save()
       post.tags.set(Tag.objects.filter(pk__in=request.POST.getlist('tags')))
       post.save()
       return redirect('post_detail', pk=post.pk)
@@ -59,3 +61,19 @@ def post_edit(request, pk):
   else:
     form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+def register(request):
+  if request.method == 'POST':
+    form = RegisterForm(request.POST)
+    if form.is_valid():
+      try:
+        user = User.objects.create_user(request.POST['username'], password=request.POST['password'])
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.save()
+        return redirect('login')
+      except:
+        return render(request, 'registration/register.html', {'form': form, 'error': 'Something happened, please try again'})
+  else:
+    form = RegisterForm()
+    return render(request, 'registration/register.html', {'form': form})
