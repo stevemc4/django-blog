@@ -3,11 +3,16 @@ from blog.models import Post
 
 class PostForm(forms.ModelForm):
 
-  # def __init__(self, *args, **kwargs):
-  #   super(PostForm, self).__init__(*args, **kwargs)
+  def __init__(self, *args, **kwargs):
+    super(PostForm, self).__init__(*args, **kwargs)
 
-  #   for field in self.visible_fields():
-  #     field.widget.attrs = {'class': 'border-2 border-gray-500'}
+    # self.fields['title'].max_length = '100'
+
+  title = forms.CharField(
+    widget=forms.TextInput(attrs={
+      'maxlength': '100'
+    })
+  )
 
   class Meta:
     model = Post
