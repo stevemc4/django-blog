@@ -10,8 +10,17 @@ class PostForm(forms.ModelForm):
 
   title = forms.CharField(
     widget=forms.TextInput(attrs={
-      'maxlength': '100'
+      'maxlength': '100',
+      'class': 'border-2 rounded border-gray-400 block mt-2 mb-4'
     })
+  )
+
+  text = forms.CharField(
+    widget=forms.Textarea(
+      attrs={
+        'class': 'border-2 rounded border-gray-400 block mt-2 resize-x-none'
+      }
+    )
   )
 
   class Meta:
@@ -24,7 +33,7 @@ class CommentForm(forms.ModelForm):
     label='Write a comment',
     widget=forms.Textarea(
       attrs={
-        'class': 'border-2 border-rounded-lg border-gray-400 block resize-none w-full h-24 p-2 mt-4'
+        'class': 'border-2 rounded border-gray-400 block resize-none w-full h-24 p-2 mt-4'
       }
     )
   )

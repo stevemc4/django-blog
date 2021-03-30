@@ -8,17 +8,18 @@
 
   <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
-    <table>
-    <tr class="mb-2">
-      <td>{{ form.username.label_tag }}</td>
-      <td class="ml-2 border-b-2 border-gray-600 inline-block">{{ form.username }}</td>
-    </tr>
-    <tr>
-      <td>{{ form.password.label_tag }}</td>
-      <td class="ml-2 border-b-2 border-gray-600 inline-block">{{ form.password }}</td>
-    </tr>
-    </table>
-
+    <div class="mb-2">
+      {{ form.username.label_tag }}
+      <div class="ml-2 border-2 border-gray-400 inline mt-2 rounded">
+        {{ form.username }}
+      </div>
+    </div>
+    <div>
+      {{ form.password.label_tag }}
+      <div class="ml-2 border-2 border-gray-400 inline mt-2 rounded">
+        {{ form.password }}
+      </div>
+    </div>
     <input class="px-4 py-2 font-bold bg-green-500 text-white br-rounded-lg mt-8 cursor-pointer" type="submit" value="Login" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
