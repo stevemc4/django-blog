@@ -5,8 +5,9 @@
     <h2 class="text-3xl text-green-500 font-bold mb-1">{{ post.title }}</h2>
     <div class="mb-4">
       {% if post.published_date %}
-        <time class="text-gray-600 mb-2 block mb-1 text-lg">{{ post.published_date }}</time>
+        <time class="text-gray-600 block text-lg">{{ post.published_date }}</time>
       {% endif %}
+        <address class="mb-2">By <a rel="author">{{ post.author.first_name }} {{ post.author.last_name }}</a></address>
       {% if user.is_authenticated %}
         <a href="{% url 'post_edit' pk=post.pk %}" class="text-green-500">Edit Post</a>
       {% endif %}
