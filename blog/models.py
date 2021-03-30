@@ -4,9 +4,15 @@ from django.utils import timezone
 
 # Create your models here.
 
+class Tag(models.Model):
+  text = models.CharField(max_length=96)
+
+  def __str__(self):
+    return self.text
 class Post(models.Model):
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   title = models.CharField(max_length=200)
+  tags =  models.ManyToManyField(Tag, related_name='posts', blank=True)
   text = models.TextField()
   created_date = models.DateTimeField(default=timezone.now)
   published_date = models.DateTimeField(blank=True, null=True)

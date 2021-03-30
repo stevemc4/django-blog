@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from blog.models import Post
+from blog.models import Post, Tag
 from blog.forms import PostForm, CommentForm
 
 # Create your views here.
@@ -9,6 +9,10 @@ from blog.forms import PostForm, CommentForm
 def post_list(request):
   posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
   return render(request, 'blog/post_list.html', {'posts': posts})
+
+def post_list_filtered(request, tag):
+  posts = Post.objects.filter(published_date__lte=timezone.now(), tags__text=tag).order_by('-published_date')
+  return render(request, 'blog/post_list.html', {'posts': posts, 'page_title': tag.capitalize()})
 
 def post_detail(request, pk):
   post = get_object_or_404(Post, pk=pk)
@@ -33,6 +37,7 @@ def post_new(request):
       post = form.save(commit=False)
       post.author = request.user
       post.published_date = timezone.now()
+      post.tags.set(Tag.objects.filter(pk__in=request.POST.getlist('tags')))
       post.save()
       return redirect('post_detail', pk=post.pk)
 
@@ -48,7 +53,7 @@ def post_edit(request, pk):
     if form.is_valid():
       post = form.save(commit=False)
       post.author = request.user
-      post.published_date = timezone.now()
+      post.tags.set(Tag.objects.filter(pk__in=request.POST.getlist('tags')))
       post.save()
       return redirect('post_detail', pk=post.pk)
   else:

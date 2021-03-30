@@ -8,6 +8,16 @@
         <time class="text-gray-600 block text-lg">{{ post.published_date }}</time>
       {% endif %}
         <address class="mb-2">By <a rel="author">{{ post.author.first_name }} {{ post.author.last_name }}</a></address>
+        <div class="block mb-2">
+          Tags: 
+          {% for tag in post.tags.all %}
+            <a class="py-0.5 px-2 rounded font-bold bg-green-500 text-white text-md inline-block mr-1" href="{% url 'post_list_filtered' tag=tag.text %}">
+              {{ tag.text }}
+            </a>
+            {% empty %}
+              Untagged
+          {% endfor %}
+        </div>
       {% if user.is_authenticated and post.author == user %}
         <a href="{% url 'post_edit' pk=post.pk %}" class="text-green-500">Edit Post</a>
       {% endif %}

@@ -1,31 +1,37 @@
 from django import forms
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Tag
 
 class PostForm(forms.ModelForm):
 
-  def __init__(self, *args, **kwargs):
-    super(PostForm, self).__init__(*args, **kwargs)
-
-    # self.fields['title'].max_length = '100'
 
   title = forms.CharField(
-    widget=forms.TextInput(attrs={
-      'maxlength': '100',
-      'class': 'border-2 rounded border-gray-400 block mt-2 mb-4'
-    })
+    widget=forms.TextInput(
+      attrs={
+        'maxlength': '100',
+        'class': 'border-2 rounded border-gray-400 block mt-2 mb-4 w-full p-2'
+      })
   )
 
   text = forms.CharField(
     widget=forms.Textarea(
       attrs={
-        'class': 'border-2 rounded border-gray-400 block mt-2 resize-x-none'
+        'class': 'border-2 rounded border-gray-400 block mt-2 resize-x-none w-full p-2 mb-4'
+      }
+    )
+  )
+
+  tags = forms.ModelMultipleChoiceField(
+    Tag.objects.all(),
+    widget=forms.SelectMultiple(
+      attrs={
+        'class': 'border-2 rounded border-gray-400 block mt-2 mb-4 w-full p-2'
       }
     )
   )
 
   class Meta:
     model = Post
-    fields = ('title', 'text',)
+    fields = ('title', 'text', 'tags',)
 
 class CommentForm(forms.ModelForm):
 

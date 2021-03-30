@@ -1,6 +1,9 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+  {% if page_title %}
+    <h2 class="text-2xl font-bold mb-4">Showing <span class="text-green-500">{{ page_title }}</span> Posts</h2>
+  {% endif %}
   {% for post in posts %}
     <article class="mb-8">
       <h2 class="text-xl font-bold text-green-500 m-0"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
